@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>MiniTuring – Turing.jl</title>
+<title>A Mini Turing Implementation I: Compiler – Turing.jl</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,7 +64,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
-<link href="../../tutorials/docs-06-for-developers-interface/index.html" rel="next">
+<link href="../../tutorials/16-contexts/index.html" rel="next">
 <link href="../../tutorials/docs-05-for-developers-compiler/index.html" rel="prev">
 <link href="../../assets/favicon.ico" rel="icon">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
@@ -198,7 +198,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Documentation</li><li class="breadcrumb-item"><a href="../../tutorials/docs-01-contributing-guide/index.html">For Developers (PPL)</a></li><li class="breadcrumb-item"><a href="../../tutorials/14-minituring/index.html">A Mini Turing Compiler</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Documentation</li><li class="breadcrumb-item"><a href="../../tutorials/docs-01-contributing-guide/index.html">For Developers (PPL)</a></li><li class="breadcrumb-item"><a href="../../tutorials/14-minituring/index.html">A Mini Turing Implementation I: Compiler</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -415,7 +415,13 @@ window.Quarto = {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/14-minituring/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">A Mini Turing Compiler</span></a>
+ <span class="menu-text">A Mini Turing Implementation I: Compiler</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/16-contexts/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">A Mini Turing Implementation II: Contexts</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -480,9 +486,9 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Documentation</li><li class="breadcrumb-item"><a href="../../tutorials/docs-01-contributing-guide/index.html">For Developers (PPL)</a></li><li class="breadcrumb-item"><a href="../../tutorials/14-minituring/index.html">A Mini Turing Compiler</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Documentation</li><li class="breadcrumb-item"><a href="../../tutorials/docs-01-contributing-guide/index.html">For Developers (PPL)</a></li><li class="breadcrumb-item"><a href="../../tutorials/14-minituring/index.html">A Mini Turing Implementation I: Compiler</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">MiniTuring</h1>
+<h1 class="title">A Mini Turing Implementation I: Compiler</h1>
 </div>
 
 
@@ -551,7 +557,7 @@ x &amp;\sim \operatorname{Normal}(b, 0.5^2)
 <li><code>observe</code> for computing log-probabilities of observed variables (but not sampling them).</li>
 </ul>
 <p>For different inference algorithms we may have to use different sampling procedures and different log-probability computations. For instance, in some cases we might want to sample all variables from their prior distributions and in other cases we might only want to compute the log-likelihood of the observations based on a given set of values for the unobserved variables. Thus depending on the inference algorithm we want to use different <code>assume</code> and <code>observe</code> implementations. We can achieve this by providing this <code>context</code> information as a function argument to <code>assume</code> and <code>observe</code>.</p>
-<p><strong>Note:</strong> <em>Although the context system in this tutorial is inspired by DynamicPPL, Turing’s context system is much more complicated for flexibility and efficiency reasons. Thus readers are advised to refer to the documentation of DynamicPPL and Turing for more detailed information about their context system.</em></p>
+<p><strong>Note:</strong> <em>Although the context system in this tutorial is inspired by DynamicPPL, it is very simplistic. We expand this mini Turing example in the <a href="../16-contexts">contexts</a> tutorial with some more complexity, to illustrate how and why contexts are central to Turing’s design. For the full details one still needs to go to the actual source of DynamicPPL though.</em></p>
 <p>Here we can see the implementation of a sampler that draws values of unobserved variables from the prior and computes the log-probability for every variable.</p>
 <div id="10" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> SamplingContext{S<span class="op">&lt;:</span><span class="dt">AbstractMCMC.AbstractSampler</span>,R<span class="op">&lt;:</span><span class="dt">Random.AbstractRNG</span>}</span>
@@ -724,16 +730,16 @@ Summary Statistics
  <span class="ansi-bold"> parameters </span> <span class="ansi-bold">    mean </span> <span class="ansi-bold">     std </span> <span class="ansi-bold">    mcse </span> <span class="ansi-bold">    ess_bulk </span> <span class="ansi-bold">    ess_tail </span> <span class="ansi-bold">    rh</span> ⋯
  <span class="ansi-bright-black-fg">     Symbol </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg">     Float64 </span> <span class="ansi-bright-black-fg">     Float64 </span> <span class="ansi-bright-black-fg"> Float</span> ⋯
 
-           a    0.9757    0.8995    0.0031    81819.6077   121806.8809    1.00 ⋯
-           b    2.8789    0.4874    0.0012   171637.4426   212792.5927    1.00 ⋯
+           a    0.9760    0.9006    0.0032    80788.7939   121425.7007    1.00 ⋯
+           b    2.8808    0.4874    0.0012   172182.3439   213943.1149    1.00 ⋯
 <span class="ansi-cyan-fg">                                                               2 columns omitted</span>
 
 Quantiles
  <span class="ansi-bold"> parameters </span> <span class="ansi-bold">    2.5% </span> <span class="ansi-bold">   25.0% </span> <span class="ansi-bold">   50.0% </span> <span class="ansi-bold">   75.0% </span> <span class="ansi-bold">   97.5% </span>
  <span class="ansi-bright-black-fg">     Symbol </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span>
 
-           a   -0.7862    0.3667    0.9751    1.5842    2.7382
-           b    1.9272    2.5503    2.8773    3.2077    3.8337
+           a   -0.7906    0.3682    0.9774    1.5826    2.7433
+           b    1.9256    2.5533    2.8790    3.2093    3.8406
 </pre>
 </div>
 </div>
@@ -758,8 +764,8 @@ Quantiles
 Iterations        = 1:1:1000000
 Number of chains  = 1
 Samples per chain = 1000000
-Wall duration     = 40.95 seconds
-Compute duration  = 40.95 seconds
+Wall duration     = 41.4 seconds
+Compute duration  = 41.4 seconds
 parameters        = a, b
 internals         = lp
 
@@ -767,16 +773,16 @@ Summary Statistics
  <span class="ansi-bold"> parameters </span> <span class="ansi-bold">    mean </span> <span class="ansi-bold">     std </span> <span class="ansi-bold">    mcse </span> <span class="ansi-bold">    ess_bulk </span> <span class="ansi-bold">    ess_tail </span> <span class="ansi-bold">    rh</span> ⋯
  <span class="ansi-bright-black-fg">     Symbol </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg">     Float64 </span> <span class="ansi-bright-black-fg">     Float64 </span> <span class="ansi-bright-black-fg"> Float</span> ⋯
 
-           a    0.9710    0.8968    0.0031    83206.4439   125895.1074    1.00 ⋯
-           b    2.8814    0.4872    0.0012   173829.5226   214211.2809    1.00 ⋯
+           a    0.9750    0.8962    0.0031    81673.1531   119583.6952    1.00 ⋯
+           b    2.8820    0.4876    0.0012   173462.9368   219043.3814    1.00 ⋯
 <span class="ansi-cyan-fg">                                                               2 columns omitted</span>
 
 Quantiles
  <span class="ansi-bold"> parameters </span> <span class="ansi-bold">    2.5% </span> <span class="ansi-bold">   25.0% </span> <span class="ansi-bold">   50.0% </span> <span class="ansi-bold">   75.0% </span> <span class="ansi-bold">   97.5% </span>
  <span class="ansi-bright-black-fg">     Symbol </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span> <span class="ansi-bright-black-fg"> Float64 </span>
 
-           a   -0.7843    0.3640    0.9727    1.5760    2.7216
-           b    1.9264    2.5538    2.8798    3.2094    3.8342
+           a   -0.7822    0.3739    0.9752    1.5783    2.7334
+           b    1.9262    2.5527    2.8826    3.2107    3.8376
 </pre>
 </div>
 </div>
@@ -1214,8 +1220,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../tutorials/docs-06-for-developers-interface/index.html" class="pagination-link" aria-label="Interface Guide">
-        <span class="nav-page-text">Interface Guide</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../tutorials/16-contexts/index.html" class="pagination-link" aria-label="A Mini Turing Implementation II: Contexts">
+        <span class="nav-page-text">A Mini Turing Implementation II: Contexts</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
