@@ -1,4 +1,4 @@
-# Documentation and Tutorials for Turing.jl
+# Documentation and Tutorials for Turing.jl edit
 
 This repository is part of [Turing.jl's](https://turinglang.org/) website (i.e. `https://turinglang.org/docs/`). It contains the Turing.jl documentation and tutorials. 
 
