@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.55">
+<meta name="generator" content="quarto-1.5.57">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Using External Sampler – Turing.jl</title>
+<title>Using External Samplers – Turing.jl</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,17 +65,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
 <link href="../../tutorials/00-introduction/index.html" rel="next">
-<link href="../../tutorials/docs-15-using-turing-sampler-viz/index.html" rel="prev">
+<link href="../../tutorials/docs-11-using-turing-dynamichmc/index.html" rel="prev">
 <link href="../../assets/favicon.ico" rel="icon">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -159,10 +161,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-v0.33" role="link" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">v0.33</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-v0.34" role="link" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">v0.34</span>
     </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-v0.33">    
+    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="nav-menu-v0.34">    
         <li>
     <a class="dropdown-item" href="https://turinglang.org/docs/changelog.html">
  <span class="dropdown-text">Changelog</span></a>
@@ -175,9 +177,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools tools-wide">
     <a href="https://x.com/TuringLang" title="Turing Twitter" class="quarto-navigation-tool px-1" aria-label="Turing Twitter"><i class="bi bi-twitter"></i></a>
     <a href="https://github.com/TuringLang/Turing.jl" title="Turing GitHub" class="quarto-navigation-tool px-1" aria-label="Turing GitHub"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -186,7 +189,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Documentation</li><li class="breadcrumb-item"><a href="../../tutorials/docs-00-getting-started/index.html">Using Turing - Modelling Syntax and Interface</a></li><li class="breadcrumb-item"><a href="../../tutorials/docs-16-using-turing-external-samplers/index.html">External Samplers</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/docs-00-getting-started/index.html">Users</a></li><li class="breadcrumb-item"><a href="../../tutorials/docs-10-using-turing-autodiff/index.html">Usage Tips</a></li><li class="breadcrumb-item"><a href="../../tutorials/docs-16-using-turing-external-samplers/index.html">Using External Samplers</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -201,21 +204,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
- <span class="menu-text">Documentation</span></a>
+ <span class="menu-text">Users</span></a>
           <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
- <span class="menu-text">Using Turing - Modelling Syntax and Interface</span></a>
-          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/docs-00-getting-started/index.html" class="sidebar-item-text sidebar-link">
@@ -224,14 +218,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/docs-14-using-turing-quick-start/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quick Start</span></a>
+  <a href="../../tutorials/docs-12-using-turing-guide/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Core Functionality</span></a>
+  </div>
+</li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Usage Tips</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth2 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/docs-10-using-turing-autodiff/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Automatic Differentiation</span></a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/docs-12-using-turing-guide/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Guide</span></a>
+  <a href="../../tutorials/usage-custom-distribution/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Custom Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/usage-modifying-logprob/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Modifying the Log Probability</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/usage-generated-quantities/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Generated Quantities</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -242,26 +263,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../tutorials/docs-09-using-turing-advanced/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Advanced Usage</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/docs-10-using-turing-autodiff/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Automatic Differentiation</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../../tutorials/docs-13-using-turing-performance-tips/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Performance Tips</span></a>
-  </div>
-</li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../tutorials/docs-11-using-turing-dynamichmc/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Using DynamicHMC</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -272,8 +275,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../../tutorials/docs-11-using-turing-dynamichmc/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Using DynamicHMC</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../../tutorials/docs-16-using-turing-external-samplers/index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">External Samplers</span></a>
+ <span class="menu-text">Using External Samplers</span></a>
   </div>
 </li>
       </ul>
@@ -281,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
- <span class="menu-text">Using Turing - Tutorials</span></a>
+ <span class="menu-text">Tutorials</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
@@ -290,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/00-introduction/index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Introduction to Turing</span></a>
+ <span class="menu-text">Introduction: Coin Flipping</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -379,19 +388,47 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
       </ul>
   </li>
-          <li class="sidebar-item sidebar-item-section">
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
- <span class="menu-text">For Developers (PPL)</span></a>
+ <span class="menu-text">Developers</span></a>
           <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Toggle section">
             <i class="bi bi-chevron-right ms-2"></i>
           </a> 
       </div>
-      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth2 ">  
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Contributing</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/docs-01-contributing-guide/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">How to Contribute</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false">
+ <span class="menu-text">DynamicPPL in Depth</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth2 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/dev-model-manual/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Manually Defining a Model</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -412,23 +449,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">A Mini Turing Implementation II: Contexts</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+          <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false">
+ <span class="menu-text">Inference (note: outdated)</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-7" role="navigation" aria-expanded="false" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-7" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/docs-06-for-developers-interface/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Interface Guide</span></a>
   </div>
 </li>
-      </ul>
-  </li>
-          <li class="sidebar-item sidebar-item-section">
-      <div class="sidebar-item-container"> 
-            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
- <span class="menu-text">For Developers (Inference)</span></a>
-          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Toggle section">
-            <i class="bi bi-chevron-right ms-2"></i>
-          </a> 
-      </div>
-      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth2 ">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/docs-04-for-developers-abstractmcmc-turing/index.html" class="sidebar-item-text sidebar-link">
@@ -470,9 +507,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Documentation</li><li class="breadcrumb-item"><a href="../../tutorials/docs-00-getting-started/index.html">Using Turing - Modelling Syntax and Interface</a></li><li class="breadcrumb-item"><a href="../../tutorials/docs-16-using-turing-external-samplers/index.html">External Samplers</a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../tutorials/docs-00-getting-started/index.html">Users</a></li><li class="breadcrumb-item"><a href="../../tutorials/docs-10-using-turing-autodiff/index.html">Usage Tips</a></li><li class="breadcrumb-item"><a href="../../tutorials/docs-16-using-turing-external-samplers/index.html">Using External Samplers</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Using External Sampler</h1>
+<h1 class="title">Using External Samplers</h1>
 </div>
 
 
@@ -534,49 +571,46 @@ dim: 10
 <div id="12" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> <span class="fu">sample</span>(model, <span class="fu">externalsampler</span>(rwmh), <span class="fl">10_000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<div class="ansi-escaped-output">
-<pre>Chains MCMC chain (10000×11×1 Array{Float64, 3}):
+<pre><code>Chains MCMC chain (10000×11×1 Array{Float64, 3}):
 
 Iterations        = 1:1:10000
 Number of chains  = 1
 Samples per chain = 10000
-Wall duration     = 3.92 seconds
-Compute duration  = 3.92 seconds
+Wall duration     = 3.59 seconds
+Compute duration  = 3.59 seconds
 parameters        = θ, z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9]
 internals         = lp
 
 Summary Statistics
- <span class="ansi-bold"> parameters  </span><span class="ansi-bold">    mean  </span><span class="ansi-bold">     std  </span><span class="ansi-bold">    mcse  </span><span class="ansi-bold"> ess_bulk  </span><span class="ansi-bold"> ess_tail  </span><span class="ansi-bold">    rhat  </span><span class="ansi-bold"> e ⋯
- </span><span class="ansi-bright-black-fg ansi-bold">     Symbol  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold">  Float64  </span><span class="ansi-bright-black-fg ansi-bold">  Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold">   ⋯
+  parameters      mean       std      mcse   ess_bulk   ess_tail      rhat   e ⋯
+      Symbol   Float64   Float64   Float64    Float64    Float64   Float64     ⋯
 
-           θ   -0.6126    0.8906    0.1733    27.9356    22.0534    1.2322     ⋯
-        z[1]    0.2912    0.6398    0.0825    61.4439   110.2152    1.0729     ⋯
-        z[2]    0.5968    0.5998    0.0686    85.9464   121.5982    1.1761     ⋯
-        z[3]   -0.3266    0.6627    0.0820    58.5429   119.2306    1.0477     ⋯
-        z[4]   -0.7021    0.7502    0.1150    42.3789   121.9558    1.0763     ⋯
-        z[5]   -0.6452    0.6932    0.0765    84.3362   101.7112    1.1174     ⋯
-        z[6]    0.3016    0.6056    0.0729    69.6062   156.5886    1.0803     ⋯
-        z[7]   -0.0681    0.5666    0.0586    89.8078   138.2868    1.0751     ⋯
-        z[8]    0.0077    0.6223    0.0601    97.3245   107.9516    1.0058     ⋯
-        z[9]    0.5706    0.5870    0.0646    85.6942   121.5566    1.0740     ⋯
-</span><span class="ansi-cyan-fg ansi-bold">                                                                1 column omitted
+           θ    0.6521    0.9536    0.1713    33.9171    42.7726    1.1969     ⋯
+        z[1]   -0.9725    0.8924    0.1116    68.0300   159.2470    1.0405     ⋯
+        z[2]    0.6406    0.8580    0.0751   133.4310   266.6041    1.0224     ⋯
+        z[3]   -0.5945    0.8138    0.0663   154.5177   198.1418    1.0438     ⋯
+        z[4]    1.0801    0.9096    0.1191    57.8357   126.9930    1.0768     ⋯
+        z[5]    2.0852    1.0646    0.1705    39.2916    52.0310    1.1811     ⋯
+        z[6]   -0.7763    0.8310    0.0802   112.2889   207.3829    1.0480     ⋯
+        z[7]    1.2155    0.9104    0.0773   137.7117   146.8790    1.0420     ⋯
+        z[8]   -1.7449    0.9781    0.1419    47.0589    65.9117    1.1684     ⋯
+        z[9]   -1.2284    0.9552    0.1299    54.3247   128.5163    1.0646     ⋯
+                                                                1 column omitted
 
 Quantiles
- </span><span class="ansi-cyan-fg ansi-bold"> parameters  </span><span class="ansi-cyan-fg ansi-bold">    2.5%  </span><span class="ansi-cyan-fg ansi-bold">   25.0%  </span><span class="ansi-cyan-fg ansi-bold">   50.0%  </span><span class="ansi-cyan-fg ansi-bold">   75.0%  </span><span class="ansi-cyan-fg ansi-bold">   97.5%
- </span><span class="ansi-bright-black-fg ansi-bold">     Symbol  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
 
-           θ   -2.1303   -1.1456   -0.6404    0.0305    1.0554
-        z[1]   -1.0306   -0.1864    0.2761    0.7797    1.5487
-        z[2]   -0.5654    0.3423    0.4568    1.0053    1.8831
-        z[3]   -1.9018   -0.5949   -0.3044    0.2041    0.8248
-        z[4]   -2.4293   -1.2457   -0.5996   -0.2399    0.4316
-        z[5]   -2.0247   -1.0682   -0.7688   -0.1109    0.6829
-        z[6]   -0.9127   -0.1503    0.3432    0.6200    1.6361
-        z[7]   -1.3075   -0.4300   -0.0035    0.3236    0.9843
-        z[8]   -1.1091   -0.4177    0.1156    0.3650    1.5180
-        z[9]   -0.4142    0.1907    0.4317    0.9139    2.0254
-</span></pre>
-</div>
+           θ   -0.9916    0.0568    0.7581    1.3455    2.3003
+        z[1]   -3.0638   -1.5217   -0.8627   -0.2477    0.4380
+        z[2]   -1.0313    0.0870    0.5710    1.2458    2.5575
+        z[3]   -2.3445   -1.1308   -0.4892   -0.1196    1.1378
+        z[4]   -0.2924    0.3326    0.9927    1.6801    2.9385
+        z[5]    0.5063    1.2338    2.0255    2.7874    4.2146
+        z[6]   -2.5730   -1.3099   -0.7016   -0.2050    0.5705
+        z[7]   -0.5276    0.7060    1.0692    1.8180    3.1087
+        z[8]   -4.0292   -2.3764   -1.6277   -1.0169   -0.1292
+        z[9]   -3.3066   -1.7858   -1.2261   -0.4237    0.3678</code></pre>
 </div>
 </div>
 </section>
@@ -586,71 +620,34 @@ Quantiles
 <p>We will use the library <code>Pathfinder</code><a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> ((<code>Pathfinder</code>’s GitHub)[https://github.com/mlcolab/Pathfinder.jl]) to construct our estimate of mass matrix. <code>Pathfinder</code> is a variational inference algorithm that first finds the maximum a posteriori (MAP) estimate of a target posterior distribution and then uses the trace of the optimization to construct a sequence of multivariate normal approximations to the target distribution. In this process, <code>Pathfinder</code> computes an estimate of the mass matrix the user can access.</p>
 <p>The code below shows this can be done in practice.</p>
 <div id="14" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">AdvancedHMC</span>, <span class="bu">Pathfinder</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Running pathfinder</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>draws <span class="op">=</span> <span class="fl">1_000</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>result_multi <span class="op">=</span> <span class="fu">multipathfinder</span>(model, draws; nruns<span class="op">=</span><span class="fl">8</span>)</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimating the metric</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>inv_metric <span class="op">=</span> result_multi.pathfinder_results[<span class="fl">1</span>].fit_distribution.Σ</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>metric <span class="op">=</span> <span class="fu">DenseEuclideanMetric</span>(<span class="fu">Matrix</span>(inv_metric))</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating an AdvancedHMC NUTS sampler with the custom metric.</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>n_adapts <span class="op">=</span> <span class="fl">1000</span> <span class="co"># Number of adaptation steps</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>tap <span class="op">=</span> <span class="fl">0.9</span> <span class="co"># Large target acceptance probability to deal with the funnel structure of the posterior</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>nuts <span class="op">=</span> AdvancedHMC.<span class="fu">NUTS</span>(tap; metric<span class="op">=</span>metric)</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> <span class="fu">sample</span>(model, <span class="fu">externalsampler</span>(nuts), <span class="fl">10_000</span>; n_adapts<span class="op">=</span><span class="fl">1_000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">AdvancedHMC</span>, <span class="bu">Pathfinder</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Running pathfinder</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>draws <span class="op">=</span> <span class="fl">1_000</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>result_multi <span class="op">=</span> <span class="fu">multipathfinder</span>(model, draws; nruns<span class="op">=</span><span class="fl">8</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimating the metric</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>inv_metric <span class="op">=</span> result_multi.pathfinder_results[<span class="fl">1</span>].fit_distribution.Σ</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>metric <span class="op">=</span> <span class="fu">DenseEuclideanMetric</span>(<span class="fu">Matrix</span>(inv_metric))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Creating an AdvancedHMC NUTS sampler with the custom metric.</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>n_adapts <span class="op">=</span> <span class="fl">1000</span> <span class="co"># Number of adaptation steps</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>tap <span class="op">=</span> <span class="fl">0.9</span> <span class="co"># Large target acceptance probability to deal with the funnel structure of the posterior</span></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>nuts <span class="op">=</span> AdvancedHMC.<span class="fu">NUTS</span>(tap; metric<span class="op">=</span>metric)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> <span class="fu">sample</span>(model, <span class="fu">externalsampler</span>(nuts), <span class="fl">10_000</span>; n_adapts<span class="op">=</span><span class="fl">1_000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>┌ Warning: Pareto shape k = 0.72 &gt; 0.7. Resulting importance sampling estimates are likely to be unstable.
-└ @ PSIS ~/.julia/packages/PSIS/jwznT/src/core.jl:314
-[ Info: Found initial step size 9.387731552124024e-8</code></pre>
+<pre><code>WARNING: Method definition size(Transducers.ProgressLoggingFoldable{T} where T) in module Transducers at /home/runner/.julia/packages/Transducers/txnl6/src/progress.jl:63 overwritten in module Pathfinder at /home/runner/.julia/packages/Pathfinder/02iSv/src/transducers.jl:15.
+ERROR: Method overwriting is not permitted during Module precompilation. Use `__precompile__(false)` to opt-out of precompilation.</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<div class="ansi-escaped-output">
-<pre>Chains MCMC chain (10000×23×1 Array{Float64, 3}):
-
-Iterations        = 1:1:10000
-Number of chains  = 1
-Samples per chain = 10000
-Wall duration     = 5.98 seconds
-Compute duration  = 5.98 seconds
-parameters        = θ, z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9]
-internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size, is_adapt
-
-Summary Statistics
- <span class="ansi-bold"> parameters  </span><span class="ansi-bold">    mean  </span><span class="ansi-bold">     std  </span><span class="ansi-bold">    mcse  </span><span class="ansi-bold">  ess_bulk  </span><span class="ansi-bold">  ess_tail  </span><span class="ansi-bold">    rhat  </span><span class="ansi-bold"> ⋯
- </span><span class="ansi-bright-black-fg ansi-bold">     Symbol  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold">   Float64  </span><span class="ansi-bright-black-fg ansi-bold">   Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> ⋯
-
-           θ   -0.9394    1.0742    0.0294   1269.6570    979.9725    1.0007   ⋯
-        z[1]    0.2938    0.5914    0.0075   6191.5095   6163.5075    1.0000   ��
-        z[2]    0.4452    0.6433    0.0186   1589.2229   5453.8992    1.0011   ⋯
-        z[3]   -0.3616    0.6096    0.0077   6286.2884   6667.9157    1.0002   ⋯
-        z[4]   -0.6266    0.6833    0.0110   3927.4192   6560.1091    1.0000   ⋯
-        z[5]   -0.5192    0.6430    0.0101   4315.3576   5320.3327    1.0001   ⋯
-        z[6]    0.2749    0.5920    0.0150   1934.2474   5597.0014    1.0007   ⋯
-        z[7]    0.0128    0.5840    0.0168   1434.0573    220.9866    1.0004   ⋯
-        z[8]    0.0467    0.5623    0.0072   4710.1741   5672.9555    1.0001   ⋯
-        z[9]    0.4405    0.6410    0.0113   2573.0958   5160.8862    1.0011   ⋯
-</span><span class="ansi-cyan-fg ansi-bold">                                                                1 column omitted
-
-Quantiles
- </span><span class="ansi-cyan-fg ansi-bold"> parameters  </span><span class="ansi-cyan-fg ansi-bold">    2.5%  </span><span class="ansi-cyan-fg ansi-bold">   25.0%  </span><span class="ansi-cyan-fg ansi-bold">   50.0%  </span><span class="ansi-cyan-fg ansi-bold">   75.0%  </span><span class="ansi-cyan-fg ansi-bold">   97.5%
- </span><span class="ansi-bright-black-fg ansi-bold">     Symbol  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64
-
-           θ   -2.8642   -1.7717   -0.8878   -0.1370    1.0606
-        z[1]   -0.7839   -0.0843    0.2331    0.6386    1.6044
-        z[2]   -0.6187    0.0119    0.3424    0.8023    1.9088
-        z[3]   -1.7354   -0.7185   -0.2870    0.0428    0.6932
-        z[4]   -2.2025   -0.9979   -0.5165   -0.1381    0.4312
-        z[5]   -2.0275   -0.9062   -0.4150   -0.0767    0.5248
-        z[6]   -0.7911   -0.1067    0.2146    0.6024    1.5840
-        z[7]   -1.1533   -0.3110    0.0136    0.3509    1.2190
-        z[8]   -1.0663   -0.2955    0.0324    0.3741    1.2404
-        z[9]   -0.5895    0.0010    0.3478    0.7950    1.9400
-</span></pre>
-</div>
+<div class="cell-output cell-output-error">
+<pre><code>UndefVarError: UndefVarError(:optim_function)
+UndefVarError: `optim_function` not defined
+Stacktrace:
+ [1] multipathfinder(model::DynamicPPL.Model{typeof(funnel), (), (), (), Tuple{}, Tuple{}, DynamicPPL.ConditionContext{@NamedTuple{x::Vector{Float64}}, DynamicPPL.DefaultContext}}, ndraws::Int64; rng::Random._GLOBAL_RNG, init_scale::Int64, init_sampler::Pathfinder.UniformSampler{Int64}, nruns::Int64, kwargs::@Kwargs{})
+   @ Pathfinder ~/.julia/packages/Pathfinder/02iSv/src/integration/turing.jl:150
+ [2] top-level scope
+   @ ~/work/docs/docs/tutorials/docs-16-using-turing-external-samplers/index.qmd:116</code></pre>
 </div>
 </div>
 </section>
@@ -659,100 +656,103 @@ Quantiles
 <p>So far we have used Turing’s support for external samplers to go beyond the capabilities of the wrappers. We want to use this support to employ a sampler not supported within Turing’s ecosystem yet. We will use the recently developed Micro-Cannoncial Hamiltonian Monte Carlo (MCHMC) sampler to showcase this. MCHMC[<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>,<a href="#fn4" class="footnote-ref" id="fnref4" role="doc-noteref"><sup>4</sup></a>] ((MCHMC’s GitHub)[https://github.com/JaimeRZP/MicroCanonicalHMC.jl]) is HMC sampler that uses one single Hamiltonian energy level to explore the whole parameter space. This is achieved by simulating the dynamics of a microcanonical Hamiltonian with an additional noise term to ensure ergodicity.</p>
 <p>Using this as well as other inference methods outside the Turing ecosystem is as simple as executing the code shown below:</p>
 <div id="16" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MicroCanonicalHMC</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create MCHMC sampler</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>n_adapts <span class="op">=</span> <span class="fl">1_000</span> <span class="co"># adaptation steps</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>tev <span class="op">=</span> <span class="fl">0.01</span> <span class="co"># target energy variance</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>mchmc <span class="op">=</span> <span class="fu">MCHMC</span>(n_adapts, tev; adaptive<span class="op">=</span><span class="cn">true</span>)</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> <span class="fu">sample</span>(model, <span class="fu">externalsampler</span>(mchmc), <span class="fl">10_000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">MicroCanonicalHMC</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Create MCHMC sampler</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>n_adapts <span class="op">=</span> <span class="fl">1_000</span> <span class="co"># adaptation steps</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>tev <span class="op">=</span> <span class="fl">0.01</span> <span class="co"># target energy variance</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>mchmc <span class="op">=</span> <span class="fu">MCHMC</span>(n_adapts, tev; adaptive<span class="op">=</span><span class="cn">true</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Sample</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> <span class="fu">sample</span>(model, <span class="fu">externalsampler</span>(mchmc), <span class="fl">10_000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[ Info: Tuning eps ⏳
 [ Info: Tuning L ⏳
 [ Info: Tuning sigma ⏳
-Tuning:   0%|▏                                          |  ETA: 0:08:25
-  ϵ:     1.9004280018830915
+Tuning:   0%|▏                                          |  ETA: 0:07:56
+  ϵ:     1.1219334113454498
   L:     3.1622776601683795
-  dE/d:  -0.02281691682414504
+  dE/d:  -0.021200706907310973
+
+
+Tuning:   1%|▍                                          |  ETA: 0:04:07
+  ϵ:     0.8607092216138286
+  L:     4.023200770470439
+  dE/d:  0.006752540200175972
 
 
 Tuning: 100%|███████████████████████████████████████████| Time: 0:00:02
-  ϵ:     1.0488183286789563
-  L:     0.7393234640030361
-  dE/d:  0.004357171418567773</code></pre>
+  ϵ:     2.901183555899777
+  L:     1166.377882211704
+  dE/d:  0.02836270155190306</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<div class="ansi-escaped-output">
-<pre>Chains MCMC chain (10000×11×1 Array{Float64, 3}):
+<pre><code>Chains MCMC chain (10000×11×1 Array{Float64, 3}):
 
 Iterations        = 1:1:10000
 Number of chains  = 1
 Samples per chain = 10000
-Wall duration     = 5.26 seconds
-Compute duration  = 5.26 seconds
+Wall duration     = 6.49 seconds
+Compute duration  = 6.49 seconds
 parameters        = θ, z[1], z[2], z[3], z[4], z[5], z[6], z[7], z[8], z[9]
 internals         = lp
 
 Summary Statistics
- <span class="ansi-bold"> parameters  </span><span class="ansi-bold">    mean  </span><span class="ansi-bold">     std  </span><span class="ansi-bold">    mcse  </span><span class="ansi-bold"> ess_bulk  </span><span class="ansi-bold"> ess_tail  </span><span class="ansi-bold">    rhat  </span><span class="ansi-bold"> e ⋯
- </span><span class="ansi-bright-black-fg ansi-bold">     Symbol  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold">  Float64  </span><span class="ansi-bright-black-fg ansi-bold">  Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold">   ⋯
+  parameters      mean       std      mcse    ess_bulk    ess_tail      rhat   ⋯
+      Symbol   Float64   Float64   Float64     Float64     Float64   Float64   ⋯
 
-           θ   -0.8709    1.0668    0.0952   120.5862   184.4310    1.0042     ⋯
-        z[1]    0.3061    0.5851    0.0302   402.5628   440.7721    1.0013     ⋯
-        z[2]    0.4389    0.6074    0.0342   360.4766   421.6068    1.0072     ⋯
-        z[3]   -0.3538    0.6123    0.0329   366.8926   520.2422    1.0007     ⋯
-        z[4]   -0.6853    0.7190    0.0494   230.6096   573.0497    1.0002     ⋯
-        z[5]   -0.5591    0.6616    0.0394   325.0858   391.2233    1.0059     ⋯
-        z[6]    0.2529    0.5740    0.0292   424.4918   476.2686    1.0047     ⋯
-        z[7]    0.0426    0.5664    0.0386   229.4928   452.0498    1.0010     ⋯
-        z[8]    0.0299    0.5839    0.0269   510.7283   503.0252    1.0008     ⋯
-        z[9]    0.4794    0.6279    0.0391   277.0399   467.5382    1.0003     ⋯
-</span><span class="ansi-cyan-fg ansi-bold">                                                                1 column omitted
+           θ    0.9745    0.7570    0.0163   2168.1286   1774.5417    1.0010   ⋯
+        z[1]   -1.0307    0.8545    0.0138   3865.7468   4679.6542    1.0119   ⋯
+        z[2]    0.7549    0.8610    0.0140   3841.4174   4354.8474    1.0034   ⋯
+        z[3]   -0.6297    0.9926    0.0205   2352.6222   3333.4565    1.0017   ⋯
+        z[4]    1.3037    0.8552    0.0157   2977.7671   4079.4023    1.0020   ⋯
+        z[5]    2.3038    0.9642    0.0176   3025.0887   4119.5806    1.0015   ⋯
+        z[6]   -0.8747    0.8400    0.0136   3832.5156   5176.3409    1.0029   ⋯
+        z[7]    1.3851    0.8689    0.0168   2694.5074   3928.6091    1.0037   ⋯
+        z[8]   -1.8791    0.9444    0.0193   2403.7222   3287.6005    1.0017   ⋯
+        z[9]   -1.2664    0.8511    0.0159   2881.1510   4034.5652    1.0003   ⋯
+                                                                1 column omitted
 
 Quantiles
- </span><span class="ansi-cyan-fg ansi-bold"> parameters  </span><span class="ansi-cyan-fg ansi-bold">    2.5%  </span><span class="ansi-cyan-fg ansi-bold">   25.0%  </span><span class="ansi-cyan-fg ansi-bold">   50.0%  </span><span class="ansi-cyan-fg ansi-bold">   75.0%  </span><span class="ansi-cyan-fg ansi-bold">   97.5%
- </span><span class="ansi-bright-black-fg ansi-bold">     Symbol  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64  </span><span class="ansi-bright-black-fg ansi-bold"> Float64
+  parameters      2.5%     25.0%     50.0%     75.0%     97.5%
+      Symbol   Float64   Float64   Float64   Float64   Float64
 
-           θ   -2.8113   -1.6905   -0.8472   -0.0689    1.1342
-        z[1]   -0.7824   -0.0636    0.2637    0.6442    1.5617
-        z[2]   -0.5762    0.0235    0.3649    0.7846    1.8398
-        z[3]   -1.7677   -0.6812   -0.2787    0.0467    0.7170
-        z[4]   -2.3172   -1.0984   -0.5803   -0.1746    0.4326
-        z[5]   -2.1225   -0.9403   -0.4533   -0.0921    0.4736
-        z[6]   -0.8188   -0.1183    0.2090    0.5846    1.5165
-        z[7]   -1.0162   -0.2998    0.0169    0.3507    1.2670
-        z[8]   -1.1831   -0.3108    0.0306    0.3858    1.2008
-        z[9]   -0.5802    0.0522    0.4026    0.8455    1.9277
-</span></pre>
-</div>
+           θ   -0.6210    0.4935    1.0187    1.5035    2.3405
+        z[1]   -2.7522   -1.5956   -1.0080   -0.4483    0.5964
+        z[2]   -0.8792    0.1810    0.7348    1.3220    2.4961
+        z[3]   -2.6465   -1.3002   -0.6061    0.0618    1.2692
+        z[4]   -0.3226    0.7144    1.2843    1.8767    3.0067
+        z[5]    0.4790    1.6464    2.2889    2.9278    4.2675
+        z[6]   -2.5557   -1.4395   -0.8649   -0.2926    0.7301
+        z[7]   -0.2597    0.7850    1.3673    1.9704    3.1393
+        z[8]   -3.8308   -2.4872   -1.8509   -1.2298   -0.0964
+        z[9]   -2.9916   -1.8202   -1.2581   -0.6920    0.3459</code></pre>
 </div>
 </div>
 <p>The only requirement to work with <code>externalsampler</code> is that the provided <code>sampler</code> must implement the AbstractMCMC.jl-interface [INSERT LINK] for a <code>model</code> of type <code>AbstractMCMC.LogDensityModel</code> [INSERT LINK].</p>
 <p>As previously stated, in order to use external sampling libraries within <code>Turing</code> they must follow the <code>AbstractMCMC</code> API. In this section, we will briefly dwell on what this entails. First and foremost, the sampler should be a subtype of <code>AbstractMCMC.AbstractSampler</code>. Second, the stepping function of the MCMC algorithm must be made defined using <code>AbstractMCMC.step</code> and follow the structure below:</p>
 <div id="18" class="cell" data-execution_count="0">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First step</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> AbstractMCMC.<span class="fu">step</span><span class="dt">{T&lt;:AbstractMCMC.AbstractSampler}</span>(</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    rng<span class="op">::</span><span class="dt">Random.AbstractRNG</span>,</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    model<span class="op">::</span><span class="dt">AbstractMCMC.LogDensityModel</span>,</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    spl<span class="op">::</span><span class="dt">T</span>;</span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    kwargs<span class="op">...</span>,</span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>    [<span class="op">...</span>]</span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transition, sample</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># N+1 step</span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> AbstractMCMC.<span class="fu">step</span><span class="dt">{T&lt;:AbstractMCMC.AbstractSampler}</span>(</span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    rng<span class="op">::</span><span class="dt">Random.AbstractRNG</span>,</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    model<span class="op">::</span><span class="dt">AbstractMCMC.LogDensityModel</span>,</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>    sampler<span class="op">::</span><span class="dt">T</span>,</span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    state;</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    kwargs<span class="op">...</span>,</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>) </span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    [<span class="op">...</span>]</span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transition, sample</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First step</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> AbstractMCMC.<span class="fu">step</span><span class="dt">{T&lt;:AbstractMCMC.AbstractSampler}</span>(</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    rng<span class="op">::</span><span class="dt">Random.AbstractRNG</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    model<span class="op">::</span><span class="dt">AbstractMCMC.LogDensityModel</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    spl<span class="op">::</span><span class="dt">T</span>;</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    kwargs<span class="op">...</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    [<span class="op">...</span>]</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transition, sample</span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="co"># N+1 step</span></span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> AbstractMCMC.<span class="fu">step</span><span class="dt">{T&lt;:AbstractMCMC.AbstractSampler}</span>(</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    rng<span class="op">::</span><span class="dt">Random.AbstractRNG</span>,</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>    model<span class="op">::</span><span class="dt">AbstractMCMC.LogDensityModel</span>,</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>    sampler<span class="op">::</span><span class="dt">T</span>,</span>
+<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    state;</span>
+<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    kwargs<span class="op">...</span>,</span>
+<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>    [<span class="op">...</span>]</span>
+<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> transition, sample</span>
+<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are several characteristics to note in these functions:</p>
 <ul>
@@ -805,6 +805,150 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+    const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+    const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+    let newTheme = '';
+    if(darkModeDefault) {
+      newTheme = isAlternate ? baseTheme : alternateTheme;
+    } else {
+      newTheme = isAlternate ? alternateTheme : baseTheme;
+    }
+    const changeGiscusTheme = () => {
+      // From: https://github.com/giscus/giscus/issues/336
+      const sendMessage = (message) => {
+        const iframe = document.querySelector('iframe.giscus-frame');
+        if (!iframe) return;
+        iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+      }
+      sendMessage({
+        setConfig: {
+          theme: newTheme
+        }
+      });
+    }
+    const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+    if (isGiscussLoaded) {
+      changeGiscusTheme();
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  const darkModeDefault = false;
+  let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+    toggleGiscusIfUsed(toAlternate, darkModeDefault);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
   const icon = "";
   const anchorJS = new window.AnchorJS();
   anchorJS.options = {
@@ -1207,13 +1351,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
-      <a href="../../tutorials/docs-15-using-turing-sampler-viz/index.html" class="pagination-link" aria-label="Sampler Visualization">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Sampler Visualization</span>
+      <a href="../../tutorials/docs-11-using-turing-dynamichmc/index.html" class="pagination-link" aria-label="Using DynamicHMC">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Using DynamicHMC</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
-      <a href="../../tutorials/00-introduction/index.html" class="pagination-link" aria-label="Introduction to Turing">
-        <span class="nav-page-text">Introduction to Turing</span> <i class="bi bi-arrow-right-short"></i>
+      <a href="../../tutorials/00-introduction/index.html" class="pagination-link" aria-label="Introduction: Coin Flipping">
+        <span class="nav-page-text">Introduction: Coin Flipping</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
