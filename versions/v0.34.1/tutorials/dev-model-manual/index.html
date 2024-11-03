@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,11 +72,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-67f38b0742f9bce76ffb8d9491dae701.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -241,6 +241,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/usage-custom-distribution/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Custom Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/usage-probability-interface/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Querying Model Probabilities</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -569,7 +575,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>chain <span class="op">=</span> <span class="fu">sample</span>(model2, <span class="fu">NUTS</span>(), <span class="fl">1000</span>; progress<span class="op">=</span><span class="cn">false</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>┌ Info: Found initial step size
-└   ϵ = 1.6</code></pre>
+└   ϵ = 0.4</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>Chains MCMC chain (1000×14×1 Array{Float64, 3}):
@@ -577,8 +583,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Iterations        = 501:1:1500
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 6.85 seconds
-Compute duration  = 6.85 seconds
+Wall duration     = 7.14 seconds
+Compute duration  = 7.14 seconds
 parameters        = s², m
 internals         = lp, n_steps, is_accept, acceptance_rate, log_density, hamiltonian_energy, hamiltonian_energy_error, max_hamiltonian_energy_error, tree_depth, numerical_error, step_size, nom_step_size
 
@@ -586,16 +592,16 @@ Summary Statistics
   parameters      mean       std      mcse   ess_bulk   ess_tail      rhat   e ⋯
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64     ⋯
 
-          s²    1.8948    1.3485    0.0596   511.3855   478.9479    0.9994     ⋯
-           m    1.1918    0.7566    0.0304   675.9501   565.7969    1.0002     ⋯
+          s²    1.9975    1.7497    0.0821   491.1491   477.3231    0.9992     ⋯
+           m    1.1137    0.7663    0.0390   401.5164   439.3737    0.9990     ⋯
                                                                 1 column omitted
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5641    1.0551    1.4783    2.2387    5.8720
-           m   -0.2910    0.7553    1.1746    1.6277    2.6763</code></pre>
+          s²    0.6057    1.0341    1.5083    2.2547    6.8274
+           m   -0.6621    0.6757    1.1345    1.5778    2.4796</code></pre>
 </div>
 </div>
 <p>The subsequent pages in this section will show how the <code>@model</code> macro does this behind-the-scenes.</p>

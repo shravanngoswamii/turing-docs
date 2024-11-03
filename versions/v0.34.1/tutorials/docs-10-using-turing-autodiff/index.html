@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.32">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,11 +72,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-67f38b0742f9bce76ffb8d9491dae701.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
@@ -241,6 +241,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/usage-custom-distribution/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Custom Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/usage-probability-interface/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Querying Model Probabilities</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -565,8 +571,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 8.54 seconds
-Compute duration  = 8.54 seconds
+Wall duration     = 8.07 seconds
+Compute duration  = 8.07 seconds
 parameters        = s², m
 internals         = lp
 
@@ -574,16 +580,16 @@ Summary Statistics
   parameters      mean       std      mcse   ess_bulk   ess_tail      rhat   e ⋯
       Symbol   Float64   Float64   Float64    Float64    Float64   Float64     ⋯
 
-          s²    2.1590    1.7008    0.1574   138.7987   154.5078    1.0018     ⋯
-           m    1.0690    0.9254    0.1029    85.2995   108.5442    1.0142     ⋯
+          s²    1.8539    1.3074    0.0918   210.2944   352.9352    1.0002     ⋯
+           m    1.1625    0.7905    0.0891    96.5510    88.3366    1.0222     ⋯
                                                                 1 column omitted
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.6183    1.1128    1.6622    2.5521    6.9747
-           m   -0.9989    0.6292    1.1118    1.6057    2.8644</code></pre>
+          s²    0.5643    1.0468    1.4726    2.2030    5.1794
+           m   -0.3741    0.6795    1.1456    1.5950    2.9373</code></pre>
 </div>
 </div>
 <p>Generally, reverse-mode AD, for instance <code>ReverseDiff</code>, is faster when sampling from variables of high dimensionality (greater than 20), while forward-mode AD, for instance <code>ForwardDiff</code>, is more efficient for lower-dimension variables. This functionality allows those who are performance sensitive to fine tune their automatic differentiation for their specific models.</p>
