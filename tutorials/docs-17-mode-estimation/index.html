@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.6.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,12 +72,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-43df0d6f53b733b42d37fa7808e17715.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5a965d03c83b9a52a3a52c83f34fadca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-03f81fcb35c69179f531195cac5ac726.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -241,6 +241,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../tutorials/usage-custom-distribution/index.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Custom Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../tutorials/usage-probability-interface/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Querying Model Probabilities</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -561,7 +567,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>map_estimate <span class="op">=</span> <span class="fu">maximum_a_posteriori</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>ModeResult with maximized lp of -4.62
-[0.907407407407309, 1.1666666666668317]</code></pre>
+[0.9074074074184226, 1.1666666666604817]</code></pre>
 </div>
 </div>
 <p>The estimates are returned as instances of the <code>ModeResult</code> type. It has the fields <code>values</code> for the parameter values found and <code>lp</code> for the log probability at the optimum, as well as <code>f</code> for the objective function and <code>optim_result</code> for more detailed results of the optimisation procedure.</p>
@@ -569,8 +575,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@show</span> mle_estimate.values</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="pp">@show</span> mle_estimate.lp;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>mle_estimate.values = [0.06249999999534162, 1.7499999997301299]
-mle_estimate.lp = -0.0652883441695642</code></pre>
+<pre><code>mle_estimate.values = [0.06250000000000014, 1.75]
+mle_estimate.lp = -0.06528834416956464</code></pre>
 </div>
 </div>
 <section id="controlling-the-optimisation-process" class="level2">
@@ -583,8 +589,8 @@ mle_estimate.lp = -0.0652883441695642</code></pre>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">OptimizationNLopt</span>: NLopt.LD_TNEWTON_PRECOND_RESTART</span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="pp">@show</span> <span class="fu">maximum_likelihood</span>(model, <span class="fu">LD_TNEWTON_PRECOND_RESTART</span>());</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>maximum_likelihood(model, NelderMead()) = [0.06249737680855461, 1.7499909267327478]
-maximum_likelihood(model, LD_TNEWTON_PRECOND_RESTART()) = [0.06250000000000003, 1.7500000000000002]</code></pre>
+<pre><code>maximum_likelihood(model, NelderMead()) = [0.06250083715777296, 1.7499907375321122]
+maximum_likelihood(model, LD_TNEWTON_PRECOND_RESTART()) = [0.06249999999998835, 1.750000000000288]</code></pre>
 </div>
 </div>
 <p>The above are just two examples, Optimization.jl supports <a href="https://docs.sciml.ai/Optimization/stable/">many more</a>.</p>
@@ -606,7 +612,7 @@ maximum_likelihood(model, LD_TNEWTON_PRECOND_RESTART()) = [0.06250000000000003, 
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">maximum_likelihood</span>(model; lb<span class="op">=</span>[<span class="fl">0.0</span>, <span class="op">-</span><span class="fl">1.0</span>], ub<span class="op">=</span>[<span class="fl">0.01</span>, <span class="fl">1.0</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>ModeResult with maximized lp of -59.73
-[0.009999999918966902, 0.9999999966776428]</code></pre>
+[0.0099999999512452, 0.9999999980010532]</code></pre>
 </div>
 </div>
 <p>The arguments for lower (<code>lb</code>) and upper (<code>ub</code>) bounds follow the arguments of <code>Optimization.OptimizationProblem</code>, as do other parameters for providing <a href="https://docs.sciml.ai/Optimization/stable/tutorials/constraints/">constraints</a>, such as <code>cons</code>. Any extraneous keyword arguments given to <code>maximum_likelihood</code> or <code>maximum_a_posteriori</code> are passed to <code>Optimization.solve</code>. Some often useful ones are <code>maxiters</code> for controlling the maximum number of iterations and <code>abstol</code> and <code>reltol</code> for the absolute and relative convergence tolerances:</p>
@@ -615,8 +621,8 @@ maximum_likelihood(model, LD_TNEWTON_PRECOND_RESTART()) = [0.06250000000000003, 
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    model, <span class="fu">NelderMead</span>(); maxiters<span class="op">=</span><span class="fl">10</span>, reltol<span class="op">=</span><span class="fl">1e-9</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>ModeResult with maximized lp of -3.21
-[1.6195334769443834, 0.5760770621646758]</code></pre>
+<pre><code>ModeResult with maximized lp of -0.84
+[0.2827103532930192, 1.6369559371941964]</code></pre>
 </div>
 </div>
 <p>We can check whether the optimisation converged using the <code>optim_result</code> field of the result:</p>
@@ -624,8 +630,8 @@ maximum_likelihood(model, LD_TNEWTON_PRECOND_RESTART()) = [0.06250000000000003, 
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@show</span> badly_converged_mle.optim_result;</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>badly_converged_mle.optim_result = retcode: Failure
-u: [0.48213813057607285, 0.5760770621646758]
-Final objective value:     3.20952756859377
+u: [-1.2633323920560624, 1.6369559371941964]
+Final objective value:     0.8408205968965884
 </code></pre>
 </div>
 </div>
@@ -923,8 +929,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1035,7 +1039,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

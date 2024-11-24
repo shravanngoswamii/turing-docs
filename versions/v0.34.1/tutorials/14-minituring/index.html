@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.32">
+<meta name="generator" content="quarto-1.6.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,12 +72,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-43df0d6f53b733b42d37fa7808e17715.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-67f38b0742f9bce76ffb8d9491dae701.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5a965d03c83b9a52a3a52c83f34fadca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-03f81fcb35c69179f531195cac5ac726.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -783,16 +783,16 @@ Summary Statistics
   parameters      mean       std      mcse      ess_bulk      ess_tail      rh ⋯
       Symbol   Float64   Float64   Float64       Float64       Float64   Float ⋯
 
-           a    0.9747    0.8997    0.0031    82815.8913   122726.9403    1.00 ⋯
-           b    2.8806    0.4894    0.0012   174420.9310   216324.5669    1.00 ⋯
+           a    0.9752    0.8995    0.0032    80825.3165   120116.5432    1.00 ⋯
+           b    2.8818    0.4888    0.0012   173520.0060   214705.1250    1.00 ⋯
                                                                2 columns omitted
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7970    0.3688    0.9755    1.5819    2.7392
-           b    1.9269    2.5499    2.8809    3.2104    3.8417</code></pre>
+           a   -0.7899    0.3678    0.9779    1.5837    2.7353
+           b    1.9254    2.5514    2.8809    3.2118    3.8399</code></pre>
 </div>
 </div>
 <p>We compare these results with Turing.</p>
@@ -814,8 +814,8 @@ Quantiles
 Iterations        = 1:1:1000000
 Number of chains  = 1
 Samples per chain = 1000000
-Wall duration     = 41.89 seconds
-Compute duration  = 41.89 seconds
+Wall duration     = 40.71 seconds
+Compute duration  = 40.71 seconds
 parameters        = a, b
 internals         = lp
 
@@ -823,16 +823,16 @@ Summary Statistics
   parameters      mean       std      mcse      ess_bulk      ess_tail      rh ⋯
       Symbol   Float64   Float64   Float64       Float64       Float64   Float ⋯
 
-           a    0.9756    0.9012    0.0032    80404.7514   120255.1942    1.00 ⋯
-           b    2.8793    0.4883    0.0012   170200.8297   209878.3166    1.00 ⋯
+           a    0.9744    0.8964    0.0032    80877.4574   119330.0524    1.00 ⋯
+           b    2.8810    0.4873    0.0012   173146.6220   218273.4391    1.00 ⋯
                                                                2 columns omitted
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-           a   -0.7944    0.3698    0.9762    1.5830    2.7420
-           b    1.9210    2.5490    2.8796    3.2085    3.8365</code></pre>
+           a   -0.7818    0.3663    0.9744    1.5818    2.7278
+           b    1.9273    2.5511    2.8808    3.2113    3.8341</code></pre>
 </div>
 </div>
 <p>As you can see, with our simple probabilistic programming language and custom samplers we get similar results as Turing.</p>
@@ -1067,8 +1067,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1179,7 +1177,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.6.32">
+<meta name="generator" content="quarto-1.6.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -72,12 +72,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-2486e1f0a3ee9ee1fc393803a1361cdb.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-6561bbde787c299e21493071c8edc6ff.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-29e2c20b02301cfff04dc8050bf30c7e.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark-43df0d6f53b733b42d37fa7808e17715.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-67f38b0742f9bce76ffb8d9491dae701.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../../site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/bootstrap/bootstrap-5a965d03c83b9a52a3a52c83f34fadca.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-dark-03f81fcb35c69179f531195cac5ac726.min.css" rel="prefetch" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -595,29 +595,29 @@ window.Quarto = {
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>Chains MCMC chain (1000×3×1 Array{Float64, 3}):
 
-Log evidence      = -3.765662764198112
+Log evidence      = -3.777912744907051
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 1.95 seconds
-Compute duration  = 1.95 seconds
+Wall duration     = 1.9 seconds
+Compute duration  = 1.9 seconds
 parameters        = s², m
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std      mcse   ess_bulk    ess_tail      rhat    ⋯
-      Symbol   Float64   Float64   Float64    Float64     Float64   Float64    ⋯
+  parameters      mean       std      mcse    ess_bulk   ess_tail      rhat    ⋯
+      Symbol   Float64   Float64   Float64     Float64    Float64   Float64    ⋯
 
-          s²    2.8481    4.7857    0.1784   935.9528   1019.2331    0.9995    ⋯
-           m   -0.1055    1.7109    0.0556   947.7840   1023.0661    0.9994    ⋯
+          s²    3.0005    4.1465    0.1350   1003.2701   908.0965    1.0013    ⋯
+           m    0.0103    2.0008    0.0641   1080.5564   943.0320    1.0001    ⋯
                                                                 1 column omitted
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5141    1.0983    1.7437    2.9851   10.9377
-           m   -3.5022   -1.0230   -0.0942    0.7960    3.3206</code></pre>
+          s²    0.5380    1.1288    1.8382    3.2886   12.5863
+           m   -3.3546   -0.9568    0.0039    0.8282    3.5730</code></pre>
 </div>
 </div>
 <p>The function <code>sample</code> is part of the AbstractMCMC interface. As explained in the <a href="../../tutorials/docs-06-for-developers-interface">interface guide</a>, building a sampling method that can be used by <code>sample</code> consists in overloading the structs and functions in <code>AbstractMCMC</code>. The interface guide also gives a standalone example of their implementation, <a href=""><code>AdvancedMH.jl</code></a>.</p>
@@ -650,29 +650,29 @@ w_i = \frac {p(x,y,s_i,m_i)} {p(s_i, m_i)} = p(x,y \mid s_i, m_i)
 <div class="cell-output cell-output-display" data-execution_count="1">
 <pre><code>Chains MCMC chain (1000×3×1 Array{Float64, 3}):
 
-Log evidence      = -3.6909062720747428
+Log evidence      = -3.7435462389073955
 Iterations        = 1:1:1000
 Number of chains  = 1
 Samples per chain = 1000
-Wall duration     = 0.08 seconds
-Compute duration  = 0.08 seconds
+Wall duration     = 0.07 seconds
+Compute duration  = 0.07 seconds
 parameters        = s², m
 internals         = lp
 
 Summary Statistics
-  parameters      mean       std      mcse    ess_bulk   ess_tail      rhat    ⋯
-      Symbol   Float64   Float64   Float64     Float64    Float64   Float64    ⋯
+  parameters      mean       std      mcse    ess_bulk    ess_tail      rhat   ⋯
+      Symbol   Float64   Float64   Float64     Float64     Float64   Float64   ⋯
 
-          s²    3.5360   12.0488    0.3980    829.1423   958.0327    0.9999    ⋯
-           m    0.1671    1.9542    0.0616   1035.0869   789.6736    0.9994    ⋯
+          s²    3.2797    9.8679    0.3083   1049.2837   1025.7469    0.9998   ⋯
+           m   -0.0050    1.8384    0.0558   1085.6285    935.8104    0.9992   ⋯
                                                                 1 column omitted
 
 Quantiles
   parameters      2.5%     25.0%     50.0%     75.0%     97.5%
       Symbol   Float64   Float64   Float64   Float64   Float64
 
-          s²    0.5756    1.0952    1.7590    2.9701   13.1195
-           m   -3.2498   -0.7885    0.0978    0.9987    3.7751</code></pre>
+          s²    0.5416    1.1018    1.7959    3.1175   12.1674
+           m   -3.4154   -0.9480    0.0554    0.8915    3.7659</code></pre>
 </div>
 </div>
 <p>Here <code>sample</code> takes as arguments a <strong>model</strong> <code>mod</code>, an <strong>algorithm</strong> <code>alg</code>, and a <strong>number of samples</strong> <code>n_samples</code>, and returns an instance <code>chn</code> of <code>Chains</code> which can be analysed using the functions in <code>MCMCChains</code>.</p>
@@ -1211,8 +1211,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -1323,7 +1321,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
